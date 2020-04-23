@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Validate</title>
+    <link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<div id="loading"></div>
+<div id="verified"></div>
+<div id="notverified"></div>
+<div class="content">
+    <h3 class="header">Validate</h3>
+    <hr>
+    <label for="video">Sigin With Face Recognition:</label>
+    <div>
+        <canvas id="canvas" style="display: none;"></canvas>
+        <video id="video" autoplay muted></video>
+        <img src="//:0" alt="" id="output">
+    </div>
+    <input type="submit" value="Validate" id="validate" onclick="validateUser()">
+    <div id="responseArea">
+
+    </div>
+    <small class="faceboc-text">
+        Artificial Intelligence powered by <a href='https://machinebox.io/' target='_blank'>Machine Box</a>
+    </small>
+</div>
+<!-- Camera trigger -->
+<!-- Reference to your JavaScript file -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script src="assets/register.js"></script>
+</body>
+</html>
