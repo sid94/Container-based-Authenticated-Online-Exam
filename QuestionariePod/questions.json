@@ -1,0 +1,68 @@
+[{
+    "question": "What is the value of 4 + 7 * 6 % -5?",
+    "options" :{"1":"11","2":"-3", "3":"6", "4":"2", "5":"None of the above"},
+    "answer" : "3"
+},
+
+{
+    "question": "Which is the largest set below such that all values in the set are falsy?",
+    "options" :{"1":" 'false', 0, false, null and undefined ","2":"'', 0, false, null and undefined", "3":"'', 'null', NaN, false and undefined", "4":"'0', 0, NaN and null", "5":"'', NaN, [] and undefined"},
+    "answer" : "2"
+},
+
+{
+    "question": "Given the following program excerpt:<br> <br>const names = [ 'Curly', 'Ethel' ];<br>const str = `${names[0]} and ${names[1]}`;<br> <br>what is the length of string str?",
+    "options" :{"1":"16","2":"28", "3":"29", "4":"18", "5":"17"},
+    "answer" : "1"
+},
+{
+    "question": "What is the value of ((3 | 7) & ~2) << 3?",
+    "options" :{"1":" 96 ","2":"40", "3":"64", "4":"56", "5":"0"},
+    "answer" : "2"
+},
+{
+    "question": "What is the value of (1 && 2) || 0?",
+    "options" :{"1":"0","2":"true", "3":"2", "4":"false", "5":"1"},
+    "answer" : "3"
+},
+{
+    "question": "What is the best way of looping till a condition is false, where the condition may be false initially? Note that best way is defined as one which centralizes all loop control.",
+    "options" :{"1":"for-in loop","2":"for loop", "3":"for-of loop", "4":"while loop", "5":"do-while loop"},
+    "answer" : "4"
+},
+{
+    "question": "What is the result of evaluating the following expression?<br><br>[ 1, 3, 2 ].map(e => 2 * e)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;.reduce((acc, e) => acc + e, 2)",
+    "options" :{"1":"17","2":"18", "3":"20", "4":"14", "5":"12"},
+    "answer" : "4"
+},
+{
+    "question": "What is the result of evaluating the following expression?<br><br>[ -2, 0, 3 ]&nbsp;&nbsp;&nbsp;&nbsp;.reduce((acc, e, i) => acc.concat([e+i]), [])<br>&nbsp;&nbsp;&nbsp;&nbsp;.filter(e => e > 2",
+    "options" :{"1":"[ 5 ]","2":"[ 5, -1 ]", "3":"[ 9 ]", "4":"[ 5, 3 ]", "5":"[ 5, -4 ]"},
+    "answer" : "1"
+},
+{
+    "question": "Sets can be represented by arrays which maintain an invariant that they always containing distinct elements; i.e. a precondition for a set operation is that its array operands which represent sets contain only distinct elements and a post-condition is that the array representing the result set contains only distinct elements.<br><br>Which one of the following functions computes the disjointness relation between sets setA and setB; i.e. it return true iff setA and setB have no common elements?",
+    "options" :{"1":"The function<br><br>&nbsp;&nbsp;&nbsp;&nbsp;(setA, setB) => setA.every(a => !setB.include(a))","2":"The function<br><br>&nbsp;&nbsp;&nbsp;&nbsp;(setA, setB) => setA.filter(a => !setB.includes(a)).concat(setB)", "3":"The function<br><br>&nbsp;&nbsp;&nbsp;&nbsp;(setA, setB) => setA.filter(a => setB.includes(a))", "4":"The function<br><br>&nbsp;&nbsp;&nbsp;&nbsp;(setA, setB) => setA.every(a => setB.includes(a))", "5":"The function<br><br>&nbsp;&nbsp;&nbsp;&nbsp;(setA, setB) => setA.every(a => setB.includes(a))&& setA.length === setB.length"},
+    "answer" : "1"
+},
+{
+    "question": "Which one of the following choices lists characters which are special regex characters inside character classes?",
+    "options" :{"1":"Question mark ?","2":"Dollar sign $", "3":"Ampersand &", "4":"Period .", "5":"None of the above"},
+    "answer" : "5"
+},
+{
+    "question": "Which one of the following regex's describes strings of precisely 5 or more a's?",
+    "options" :{"1":"/aaaaa{2,}/","2":"/aaaaaa*/", "3":"/aaa{4,}/", "4":"/aaa{2,}/", "5":"None of the above"},
+    "answer" : "2"
+
+},{
+    "question": "Given the following program fragment:<br><br> const str = 'Did gyre and gimble in the wabe';<br>const [, , a, b ] = str.match(/(?:\\S+)\\s+(\\S+)\\s+(\\S+)/);",
+    "options" :{"1":"The values of a and b will be 'gyre' and undefined respectively","2": "The values of a and b will be 'Did' and undefined respectively", "3":"The values of a and b will be 'and' and undefined respectively", "4":"The values of a and b will be 'Did' and 'gyre' respectively", "5":"The values of a and b will be 'gyre' and 'and' respectively"},
+    "answer" : "3"
+},
+{
+    "question": "Which one of the following statements is always true?",
+    "options" :{"1":"Multiple handlers handler1 and handler2 can be attached to the promise p using code:<br><br>&nbsp;&nbsp;&nbsp;&nbsp;p.then(handler1)<br>&nbsp;&nbsp;.then(handler2);","2":"If p is a Promise, then p.then(fn) will return whatever the call fn() returns.", "3":"A promise is an object which wraps a result representing success or error.", "4":"If p is a Promise, then p.catch(err) will throw the err object.", "5":"A promise is a function which is called when an event occurs."},
+    "answer" : "3"
+}
+]

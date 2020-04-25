@@ -25,7 +25,7 @@ export default class Data {
     }
 
     async create(obj){
-        obj = await randomId(obj)
+        obj = await randomId(obj);
         try{
             await this.questions.insertOne(obj)
         }
@@ -42,7 +42,32 @@ export default class Data {
 
     async find(){
         try{
-            return await this.questions.aggregate([{ $sample: { size: 3 } }]).toArray();
+            let result = await this.questions.aggregate([{ $sample: { size: 4 } }]).toArray();
+            return result.map((obj)=>{obj.id = obj._id;delete obj._id;return obj});
+        }
+        catch (err) {
+            throw err
+        }
+    }
+
+    async score(val){
+        try{
+            let retObj = {};
+            const queryVal = val.sol;
+            let acc = {};
+            let quesAns = queryVal.split(",").map((val)=>{
+                let arr = val.split("_");
+                acc[arr[0]] = arr[1];
+            });
+            const result = await this.questions.find({_id:{$in:Object.keys(acc)}}).toArray();
+            let grade = result.reduce((sum,val)=>{
+                if(val.answer === acc[val._id]){
+                    return sum +=1;
+                }
+            },0);
+            retObj.score = grade;
+            retObj.outof = result.length;
+            return retObj
         }
         catch (err) {
             throw err
