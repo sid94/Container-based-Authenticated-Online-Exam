@@ -24,7 +24,6 @@ app.use(cors());
 
 app.get('/data', function(req,res){
     res.json({"msg": " yes I did it!!"})
-    //dataToJpg();
 });
 
 app.get('/register', function (req,res) {
