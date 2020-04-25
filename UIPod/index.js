@@ -22,6 +22,15 @@ app.locals.port = port;
 app.use(bodyParser.json({limit: '50mb', type: 'application/json'}));
 app.use(cors());
 
+app.use('/assets', express.static('assets'));
+
+app.get('/index.html', function (req,res) {
+    fs.readFile("index.html", "utf8", (err, html) => {
+        if(err) throw err;
+        res.writeHead(200, {"Content-Type": "text/html"});
+        res.end(html);
+    })
+});
 app.get('/data', function(req,res){
     res.json({"msg": " yes I did it!!"})
     //dataToJpg();
