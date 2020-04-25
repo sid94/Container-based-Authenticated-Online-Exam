@@ -27,6 +27,14 @@ app.get('/data', function(req,res){
     //dataToJpg();
 });
 
+app.get('/register', function (req,res) {
+    res.sendfile('Register.html')
+});
+
+app.get('/sigin', function (req,res) {
+    res.sendfile('Validate.html')
+});
+
 app.post('/enroll',async function (req,res) {
     let data =  req.body;
     const imageName = await dataToPng(data);
@@ -38,6 +46,16 @@ app.post('/validate', async function(req,res){
     //console.log(data);
     const imageName =  await dataToPng(data);
     await checkIsUserValid(req,res,imageName);
+});
+
+app.get('/quiz', async (req, res)=>{
+    try{
+        const result = await axios.get('http://localhost:8002/questions');
+        await res.json(result.data);
+    }
+    catch (error) {
+       console.log(error);
+    }
 });
 
 async function enrollUser(req,res,imageName,label){
@@ -52,6 +70,7 @@ async function enrollUser(req,res,imageName,label){
         if(response !== null && response !== undefined && response.data !== null && response.data !== undefined){
             // let userData = response.data;
             response.data.userExist = (response.data.success && response.data.facesCount === 1 && response.data.faces.length > 0 && response.data.faces[0].matched);
+            //response.data.userExist = false;
             if(response.data.userExist){
                 res.json(response.data);
             }
@@ -67,9 +86,6 @@ async function enrollUser(req,res,imageName,label){
                 }).post('http://localhost:8080/facebox/teach', form1).then(teachResp => {
 
                     if(teachResp !== null && teachResp !== undefined && teachResp.data !== null && teachResp.data !== undefined){
-                        fs.unlink(imageName, function (err) {
-                            if (err) throw err;
-                        });
                         teachResp.data.userExist = false;
                         res.json(teachResp.data)
                     }
@@ -89,13 +105,11 @@ async function enrollUser(req,res,imageName,label){
             console.log(error.response);
         }
         console.log(error.message);
+    }).then(()=>{
+        fs.unlink(imageName, function (err) {
+            if (err) throw err;
+        });
     });
-
-
-
-
-
-
 }
 
 async function checkIsUserValid(req,res,imageName){
@@ -108,11 +122,7 @@ async function checkIsUserValid(req,res,imageName){
     }).post('http://localhost:8080/facebox/check', form).then(response => {
 
         if(response !== null && response !== undefined && response.data !== null && response.data !== undefined){
-            fs.unlink(imageName, function (err) {
-                if (err) throw err;
-
-            });
-            response.data.userExist = !!(response.success && res.facesCount === 1 && res.faces.length > 0 && res.faces[0].matched);
+            response.data.userExist = (response.data.success && response.data.facesCount === 1 && response.data.faces.length > 0 && response.data.faces[0].matched)
             res.json(response.data);
         }
     }).catch(error => {
@@ -121,6 +131,11 @@ async function checkIsUserValid(req,res,imageName){
             console.log(error.response);
         }
         console.log(error.message);
+    }).then(()=>{
+        fs.unlink(imageName, function (err) {
+            if (err) throw err;
+
+        });
     });
 }
 

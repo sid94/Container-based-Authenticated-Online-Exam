@@ -1,34 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Registration</title>
-    <!-- Link to main style sheet -->
-    <link rel="stylesheet" href="assets/style.css">
-</head>
-<body>
-<div id="loading"></div>
-<div id="verified"></div>
-<div id="notverified"></div>
-    <div class="content">
-        <h3 class="header">Enroll</h3>
-        <hr>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" placeholder="Your name..">
-        <label for="video">Capture Your Image:</label>
-        <div>
-            <canvas id="canvas" style="display: none;"></canvas>
-            <video id="video" autoplay muted></video>
-            <img src="//:0" alt="" id="output">
-        </div>
-        <input type="submit" value="Submit" id="submit" onclick="registerUser()">
-        <small class="faceboc-text">
-            Artificial Intelligence powered by <a href='https://machinebox.io/' target='_blank'>Machine Box</a>
-        </small>
+<!--<p><input class="w3-input w3-padding-16 w3-border" id="name" type="text" placeholder="Name" required name="name"></p>-->
+<!--<p><canvas id="canvas" style="display: none;"></canvas><video id="video" class="w3-input w3-padding-16 w3-border" autoplay muted></video><img src="//:0" alt="" id="output"></p>-->
+<!--<p><button class="w3-button" type="submit" onclick="registerUser()" >Submit</button></p>-->
+<div class="content">
+    <!--    <label for="name">Name:</label>-->
+    <div id="alertInfo" class="alert alert-info" style="display: none">
+        <strong>User Exist!</strong> Please Sign In.
+        <input class="submit-btn" style="height: 30px !important; margin-left: 44% !important;" type="submit" value="SignIn" onclick="displayReg('validate')" >
     </div>
-    <!-- Camera trigger -->
-    <!-- Reference to your JavaScript file -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
-    <script src="assets/register.js"></script>
-</body>
-</html>
+    <div class="input-group">
+        <label class="label required">Name</label>
+        <input class="input--style-4" type="text" id="name" name="first_name" style="margin-bottom: 9px;" required>
+    </div>
+    <!--    <label for="video">Capture Your Image:</label>-->
+    <div>
+        <canvas id="canvas" style="display: none;"></canvas>
+        <video id="video" autoplay muted></video>
+        <img src="//:0" alt="" id="output">
+    </div>
+    <input class="submit-btn" type="submit" value="Submit" id="submit" onclick="registerUser()"><br>
+    <small class="faceboc-text">
+        Artificial Intelligence powered by <a href='https://machinebox.io/' target='_blank'>Machine Box</a>
+    </small>
+</div>

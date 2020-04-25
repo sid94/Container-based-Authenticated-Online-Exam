@@ -2,7 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import bodyParser from 'body-parser';
 
-let port = 8080;
+let port = 8002;
 
 const OK = 200;
 const CREATED = 201;
@@ -28,6 +28,7 @@ function setupRoutes(app) {
     app.get('/', test(app));
     app.post('/questions', createQuestion(app));
     app.get('/questions',listQuestion(app));
+    app.get('/score',scoreObtained(app));
     app.use(doErrors());
 
 }
@@ -63,6 +64,20 @@ function createQuestion(app) {
             const obj = req.body;
             const results = await app.locals.model.create(obj);
             res.sendStatus(CREATED);
+        }
+        catch (err) {
+            const mapped = mapError(err);
+            res.status(mapped.status).json(mapped);
+        }
+    })
+}
+
+function scoreObtained(app) {
+    return errorWrap(async function (req, res) {
+        try {
+             const val = req.query;
+             const result = await app.locals.model.score(val);
+             res.json(result);
         }
         catch (err) {
             const mapped = mapError(err);

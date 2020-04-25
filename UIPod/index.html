@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<title>OnlineExam</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+	body,h1,h5 {font-family: "Raleway", sans-serif}
+	body, html {height: 100%}
+	.bgimg {
+		background-image: url('./assets/exam1.jpg');
+		min-height: 100%;
+		background-position: center;
+		background-size: cover;
+	}
+</style>
+<body>
+<div id="loading"></div>
+<div id="verified"></div>
+<div id="notverified"></div>
+<div class="bgimg w3-display-container w3-text-white">
+	<div class="w3-display-topright w3-jumbo">
+		<p style="color: black; font-family: 'Ink Free'; margin: 10px;">Online Exam</p>
+	</div>
+	<div class="w3-display-topleft w3-container w3-xlarge btn-border-round">
+		<p><button onclick="displayReg('register')" class="w3-button w3-black">Register</button></p>
+		<p><button onclick="displayReg('validate')" class="w3-button w3-black">Validate</button></p>
+	</div>
+	<div class="w3-display-bottomleft w3-container w3-text-black">
+		<p>powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+	</div>
+</div>
+
+
+<div id="register" class="w3-modal">
+	<div class="w3-modal-content w3-animate-zoom" style="width: 45%;">
+		<div class="w3-container w3-black">
+			<span onclick="closePopup('register')" class="w3-button w3-display-topright w3-large">x</span>
+			<h4>Register</h4>
+		</div>
+		<div id="regContainer" class="w3-container" style="padding: unset">
+
+		</div>
+	</div>
+</div>
+<div id="validate" class="w3-modal">
+	<div class="w3-modal-content w3-animate-zoom" style="width: 45%;">
+		<div class="w3-container w3-black">
+			<span onclick="closePopup('validate')" class="w3-button w3-display-topright w3-large">x</span>
+			<h4>Validate</h4>
+		</div>
+		<div id="valContainer" class="w3-container" style="padding: unset" >
+
+		</div>
+	</div>
+</div>
+<div id="quiz" class="w3-modal">
+	<div class="w3-modal-content w3-animate-zoom" style="width: 45%">
+		<div class="w3-container w3-black">
+			<span onclick="closePopup('quiz')" class="w3-button w3-display-topright w3-large">Logout</span>
+			<h4 id="quizHeader" ></h4>
+		</div>
+		<div id="quizContainer" class="w3-container" >
+		</div>
+	</div>
+</div>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+<script src="assets/register.js"></script>
+</body>
+</html>
+
