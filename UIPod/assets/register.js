@@ -31,7 +31,7 @@ async function captureImage(){
 async function postData(data, action){
     await $.ajax({
         type:"POST",
-        url:`${uri}/${action}`,
+        url:`/${action}`,
         data: JSON.stringify(data),
         headers: {
             "Content-Type":"application/json",
@@ -56,7 +56,7 @@ async function postData(data, action){
             }
         }.bind(this),
         error: function(xhr, status, err) {
-            console.error(`${uri}/${action}`, status, err.toString());
+            console.error(`/${action}`, status, err.toString());
 
         }.bind(this)
     });
@@ -120,14 +120,14 @@ function displayReg(popup){
 
     let url = "";
     if(popup === "register"){
-        url = "http://localhost:8001/register";
+        url = "/register";
         document.getElementById('valContainer').innerHTML = '<li>html data</li>';
         document.getElementById('validate').style.display='none';
         document.getElementById('register').style.display = 'block';
     }
     else{
        // document.getElementById('alertInfo').style.display = 'none';
-        url = "http://localhost:8001/sigin";
+        url = "/sigin";
         document.getElementById('regContainer').innerHTML = '<li>html data</li>';
         document.getElementById('register').style.display='none';
         document.getElementById('validate').style.display = 'block';
@@ -193,7 +193,7 @@ function displayQuiz(res) {
     let userName = res.faces[0].name;
     $.ajax({
         type: 'GET',
-        url: `${uri}/quiz`,
+        url: `/quiz`,
         success: function(data){
             let ol = document.createElement('ol');
             document.getElementById('quizContainer').appendChild(ol);
