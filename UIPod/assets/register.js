@@ -168,7 +168,7 @@ function closePopup(popup) {
         $('regContainer').empty();
         document.getElementById('regContainer').innerHTML = '<li>html data</li>';
         document.getElementById('register').style.display='none';
-        document.getElementById('alertInfo').style.display='none';
+        //document.getElementById('alertInfo').style.display='none';
         //$('alertInfo').hide();
     }
     else if(popup === "validate"){

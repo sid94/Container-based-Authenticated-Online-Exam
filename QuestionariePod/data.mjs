@@ -1,5 +1,5 @@
 import mongo from 'mongodb';
-
+import process from 'process';
 
 export default class Data {
 
@@ -12,12 +12,18 @@ export default class Data {
     static async make() {
         const dbUrl = DB_URL;
         let client;
-        try {
-          client = await mongo.connect(dbUrl, MONGO_CONNECT_OPTIONS );
-        }
-        catch (err) {
-          const msg = `cannot connect to URL "${dbUrl}": ${err}`;
-          throw msg ;
+        let success = false;
+        while(!success){
+            try {
+                client = await mongo.connect(dbUrl, MONGO_CONNECT_OPTIONS );
+                success = true;
+            }
+            catch (err) {
+                const msg = `cannot connect to URL "${dbUrl}": ${err}, retrying in 1 second`;
+                console.log(msg);
+                await new Promise(resolve => setTimeout(resolve, 1000))
+                //throw msg ;
+            }
         }
         const db = client.db();
         const data = new Data(client, db);
@@ -86,4 +92,4 @@ function randomId(obj){
 
 const MONGO_CONNECT_OPTIONS = { useUnifiedTopology: true };
 
-const DB_URL = "mongodb://localhost:27017/Exam"
+const DB_URL = process.env.MONGO_URL !== undefined ? process.env.MONGO_URL : "mongodb://localhost:27017/Exam";

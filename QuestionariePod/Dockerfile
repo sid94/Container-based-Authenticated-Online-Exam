@@ -1,13 +1,12 @@
 FROM node:13.13.0-alpine
 # Create app directory
-WORKDIR /usr/src/client
+WORKDIR /usr/src/app
 # Install app dependencies
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
-ENV QUESTIONAIREPOD_URL=http://192.168.220.154:31331 FACEBOX_URL=http://192.168.220.154:31549
 RUN npm install
 # Bundle app source
 COPY . .
-EXPOSE 8001
-CMD ["node", "index.js"]
+EXPOSE 8002
+CMD ["node", "index.mjs"]

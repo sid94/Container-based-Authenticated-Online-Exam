@@ -7,6 +7,7 @@ const cors = require('cors');
 const fs = require("fs");
 const FormData = require('form-data');
 const axios = require('axios');
+const process = require('process');
 let port = 8001;
 
 const OK = 200;
@@ -58,7 +59,8 @@ app.post('/validate', async function(req,res){
 
 app.get('/quiz', async (req, res)=>{
     try{
-        const result = await axios.get('http://localhost:8002/questions');
+        let url = (process.env.QUESTIONAIREPOD_URL !== undefined)? process.env.QUESTIONAIREPOD_URL + '/questions': "http://localhost:8002/questions";
+        const result = await axios.get(`${url}`);
         await res.json(result.data);
     }
     catch (error) {
@@ -67,13 +69,15 @@ app.get('/quiz', async (req, res)=>{
 });
 
 async function enrollUser(req,res,imageName,label){
+    let url = process.env.FACEBOX_URL !== undefined ? process.env.FACEBOX_URL + '/facebox/check' : "http://localhost:8080/facebox/check";
+    //let url = process.env.FACEBOX_URL + '/check' || "http://localhost:8080/facebox/check";
     let form = new FormData();
     form.append('file', fs.createReadStream(__dirname + `/${imageName}`), {
         filename: imageName
     });
     await axios.create({
         headers: form.getHeaders()
-    }).post('http://localhost:8080/facebox/check', form).then( async response => {
+    }).post(`${url}`, form).then( async response => {
 
         if(response !== null && response !== undefined && response.data !== null && response.data !== undefined){
             // let userData = response.data;
@@ -83,6 +87,8 @@ async function enrollUser(req,res,imageName,label){
                 res.json(response.data);
             }
             else{
+                let url = process.env.FACEBOX_URL !== undefined ? process.env.FACEBOX_URL + '/facebox/teach' : "http://localhost:8080/facebox/teach";
+                //let url = process.env.FACEBOX_URL + '/facebox/teach' || "http://localhost:8080/facebox/teach";
                 let form1 = new FormData();
                 form1.append('file', fs.createReadStream(__dirname + `/${imageName}`), {
                     filename: imageName
@@ -91,7 +97,7 @@ async function enrollUser(req,res,imageName,label){
                 form1.append('id',imageName);
                 await axios.create({
                     headers: form1.getHeaders()
-                }).post('http://localhost:8080/facebox/teach', form1).then(teachResp => {
+                }).post(`${url}`, form1).then(teachResp => {
 
                     if(teachResp !== null && teachResp !== undefined && teachResp.data !== null && teachResp.data !== undefined){
                         teachResp.data.userExist = false;
@@ -121,13 +127,15 @@ async function enrollUser(req,res,imageName,label){
 }
 
 async function checkIsUserValid(req,res,imageName){
+    let url = process.env.FACEBOX_URL !== undefined ? process.env.FACEBOX_URL + '/facebox/check' : "http://localhost:8080/facebox/check";
+    //let url = process.env.FACEBOX_URL + '/facebox/check' || "http://localhost:8080/facebox/check";
     let form = new FormData();
     form.append('file', fs.createReadStream(__dirname + `/${imageName}`), {
         filename: imageName
     });
     await axios.create({
         headers: form.getHeaders()
-    }).post('http://localhost:8080/facebox/check', form).then(response => {
+    }).post(`${url}`, form).then(response => {
 
         if(response !== null && response !== undefined && response.data !== null && response.data !== undefined){
             response.data.userExist = (response.data.success && response.data.facesCount === 1 && response.data.faces.length > 0 && response.data.faces[0].matched)

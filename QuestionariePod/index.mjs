@@ -1,5 +1,5 @@
-import serveQuestion from './question-ms.js';
-import data from './data.js';
+import {default as serveQuestion} from './question-ms.mjs';
+import {default as data} from './data.mjs';
 
 
 async function go(args) {

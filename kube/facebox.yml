@@ -1,0 +1,38 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: face-recognition
+spec:
+  selector:
+    app: face-recognition
+  ports:
+    - port: 8080
+      targetPort: 8080
+  type: LoadBalancer
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: face-recognition
+    labels:
+        app: face-recognition
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+          app: face-recognition
+    template:
+        metadata:
+          labels:
+            app: face-recognition
+        spec:
+          containers:
+          - name: face-recognition
+            image: "machinebox/facebox"
+            ports:
+               - containerPort: 8080
+            env:
+               - name: MB_KEY
+                 value: "NmMwODYxMTEzNzc1NjBjZTQ2N2U2YmM3MmM4YTlmOWQ.wQnMFkEFVv6Z-eoGkfTgb5MHJcnYmZW9YlEGJBw0_FWt_9TpZeIM3Gu6nNCwB1s9tfad2oiXpUzFNdlJUPlueg"
+            imagePullPolicy: IfNotPresent
