@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: uipod-service
+spec:
+  selector:
+    app: uipod
+  ports:
+    - port: 8001
+      targetPort: 8001
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: uipod-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uipod
+  template:
+    metadata:
+      labels:
+        app: uipod
+    spec:
+      containers:
+        - name: uipod
+          image: mestryshweta30/uipod:1.0.0
+          ports:
+            - containerPort: 8001
+          imagePullPolicy: Always

@@ -1,8 +1,9 @@
 import cors from 'cors';
 import express from 'express';
 import bodyParser from 'body-parser';
+import process from 'process';
 
-let port = 8002;
+let port = process.env.PORT !== undefined ? process.env.PORT :8002;
 
 const OK = 200;
 const CREATED = 201;
