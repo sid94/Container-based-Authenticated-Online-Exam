@@ -210,7 +210,7 @@ function displayQuiz(res) {
             });
             document.getElementById('quizContainer').style.display = 'block';
             document.getElementById('quizContainer').innerHTML = output.join('');
-            $("#quizContainer").append('<button id="submitQuiz" class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>');
+            $("#quizContainer").append('<button id="submitQuiz" class="submit-btn" onclick="submitQuiz()" style="margin-bottom: 10px;">Submit Quiz</button>');
             document.getElementById('quizHeader').innerText = "Welcome!!  " + userName;
         },
         error: function () {
@@ -270,7 +270,7 @@ function submitQuiz() {
                     bar.path.setAttribute('stroke', state.color);
                     let value = Math.round(bar.value() * 100);
                     if (value === 0) {
-                        bar.setText('');
+                        bar.setText(0);
                     } else {
                         bar.setText(value);
                     }
@@ -281,7 +281,12 @@ function submitQuiz() {
             bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif',
             bar.text.style.fontSize = '2rem',
             console.log(data.percentage),
-            bar.animate(data.percentage),
+            // if (value === 0) {
+            //     bar.animate(0.35);
+            //     bar.animate(0);
+            // } else {
+                bar.animate(data.percentage)
+            //}
             );
 
             //$("#quizContainer").hide();

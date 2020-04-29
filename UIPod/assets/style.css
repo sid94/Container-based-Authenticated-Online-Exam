@@ -37,7 +37,7 @@ html, body{
     //display:inline-block;
 }
 input[type="radio" i] {
-    width: 0;
+    width: 10px;
     background-color: initial;
     cursor: default;
     -webkit-appearance: radio;
