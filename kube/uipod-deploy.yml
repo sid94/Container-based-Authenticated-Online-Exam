@@ -9,6 +9,7 @@ spec:
     - port: 8001
       targetPort: 8001
   type: LoadBalancer
+  loadBalancerIP: 34.67.43.99
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -29,4 +30,9 @@ spec:
           image: mestryshweta30/uipod:1.0.0
           ports:
             - containerPort: 8001
+          env:
+            - name: QUESTIONAIREPOD_URL
+              value: http://34.67.43.99:8002
+            - name: FACEBOX_URL
+              value: http://34.67.43.99:8080 
           imagePullPolicy: Always
