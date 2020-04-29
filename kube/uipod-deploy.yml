@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: uipod-service
+  name: uipod
 spec:
   selector:
     app: uipod
@@ -9,12 +9,12 @@ spec:
     - port: 8001
       targetPort: 8001
   type: LoadBalancer
-  loadBalancerIP: 34.67.43.99
+  loadBalancerIP: 35.224.3.25
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: uipod-deploy
+  name: uipod
 spec:
   replicas: 1
   selector:
@@ -32,7 +32,7 @@ spec:
             - containerPort: 8001
           env:
             - name: QUESTIONAIREPOD_URL
-              value: http://34.67.43.99:8002
+              value: http://35.224.3.25:8002
             - name: FACEBOX_URL
-              value: http://34.67.43.99:8080 
+              value: http://35.224.3.25:8080 
           imagePullPolicy: Always

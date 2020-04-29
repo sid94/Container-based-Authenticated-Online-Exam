@@ -9,7 +9,7 @@ spec:
     - port: 8002
       targetPort: 8002
   type: LoadBalancer
-  loadBalancerIP: 34.67.43.99 
+  loadBalancerIP: 35.224.3.25 
 ---
 apiVersion: apps/v1
 kind: Deployment

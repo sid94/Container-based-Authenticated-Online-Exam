@@ -9,7 +9,7 @@ spec:
     - port: 8080
       targetPort: 8080
   type: LoadBalancer
-  loadBalancerIP: 34.67.43.99
+  loadBalancerIP: 35.224.3.25
 
 ---
 apiVersion: apps/v1
