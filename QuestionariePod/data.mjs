@@ -49,7 +49,7 @@ export default class Data {
     async find(){
         try{
             let result = await this.questions.aggregate([{ $sample: { size: 4 } }]).toArray();
-            return result.map((obj)=>{obj.id = obj._id;delete obj._id;return obj});
+            return result.map((obj)=>{obj.id = obj._id;delete obj._id; delete obj.answer; return obj});
         }
         catch (err) {
             throw err
@@ -68,11 +68,13 @@ export default class Data {
             const result = await this.questions.find({_id:{$in:Object.keys(acc)}}).toArray();
             let grade = result.reduce((sum,val)=>{
                 if(val.answer === acc[val._id]){
-                    return sum +=1;
+                    sum +=1;
                 }
+                return sum;
             },0);
             retObj.score = grade;
             retObj.outof = result.length;
+            retObj.percentage = (Number(retObj.score)/Number(retObj.outof));
             return retObj
         }
         catch (err) {

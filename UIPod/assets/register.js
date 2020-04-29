@@ -134,7 +134,6 @@ function displayReg(popup){
     }
     if(videoStream && videoStream.getTracks().length > 0){
         videoStream.getTracks().forEach((track) =>{
-            debugger;
             track.stop();
         });
     }
@@ -181,7 +180,6 @@ function closePopup(popup) {
     }
     if(videoStream && videoStream.getTracks().length > 0){
         videoStream.getTracks().forEach((track) =>{
-            debugger;
             track.stop();
         });
     }
@@ -190,22 +188,107 @@ function closePopup(popup) {
 function displayQuiz(res) {
     document.getElementById('validate').style.display='none';
     document.getElementById('quiz').style.display='block';
+    $("#quizResults").empty();
     let userName = res.faces[0].name;
     $.ajax({
         type: 'GET',
         url: `/quiz`,
         success: function(data){
-            let ol = document.createElement('ol');
-            document.getElementById('quizContainer').appendChild(ol);
-            data.forEach(function (ques) {
-                let li = document.createElement('li');
-                ol.appendChild(li);
-                li.innerHTML += ques.question;
+            const output = [];
+            data.forEach((currentQuestion, questionNumber)=>{
+                const answer = [];
+                for(const num in currentQuestion.options){
+                    answer.push(
+                        `<input type="radio" id="${num}_${currentQuestion.id}" name="question${currentQuestion.id}" value="${num}">
+                            <label for="${num}_${currentQuestion.id}">${currentQuestion.options[num]}</label><br>`
+                    );
+                }
+                output.push(
+                    `<div class="question" id="${currentQuestion.id}"> ${questionNumber+1}. ${currentQuestion.question} </div>
+                     <div class="answers"> ${answer.join('')} </div>`
+                );
             });
+            document.getElementById('quizContainer').style.display = 'block';
+            document.getElementById('quizContainer').innerHTML = output.join('');
+            $("#quizContainer").append('<button id="submitQuiz" class="submit-btn" onclick="submitQuiz()">Submit Quiz</button>');
             document.getElementById('quizHeader').innerText = "Welcome!!  " + userName;
         },
         error: function () {
             console.log("Error while quiz service!!!");
+        }
+    });
+}
+
+function submitQuiz() {
+    const quizContainer = document.getElementById('quizContainer');
+    const submitQuiz = document.getElementById('submitQuiz');
+    const answerContainers = quizContainer.querySelectorAll('.answers');
+    let numCorrect = 0;
+    let result = [];
+    let index = 0;
+    $("#quizContainer > .question").each(function () {
+        let obj = {};
+        obj.id = $(this).attr('id');
+        const answerContainer = answerContainers[index];
+        obj.answer = $(answerContainer.children).filter(":input[type=radio]").filter(":checked").val() || "";
+        result.push(obj);
+        index = index + 1;
+    });
+    console.log(result);
+    let queryStr = [];
+    result.forEach((obj)=>{
+        queryStr.push(`${obj.id}_${obj.answer}`);
+    });
+    let scoreStr = queryStr.toString();
+    let bar = {};
+    $.ajax({
+        type: 'GET',
+        url: `/score?sol=${scoreStr}`,
+        success: function (data) {
+            $.when(
+                $("#quizContainer").empty()
+        ).done(
+
+                $("#quizContainer").show(),
+                $("#quizContainer").html("<div id='progressBar' class='outPopUp'></div>"),
+                bar = new ProgressBar.SemiCircle(progressBar, {
+                strokeWidth: 6,
+                color: '#FFEA82',
+                trailColor: '#eee',
+                trailWidth: 1,
+                easing: 'easeInOut',
+                duration: 1400,
+                svgStyle: null,
+                text: {
+                    value: '',
+                    alignToBottom: false
+                },
+                from: {color: '#FFEA82'},
+                to: {color: '#ED6A5A'},
+                // Set default step function for all animate calls
+                step: (state, bar) => {
+                    bar.path.setAttribute('stroke', state.color);
+                    let value = Math.round(bar.value() * 100);
+                    if (value === 0) {
+                        bar.setText('');
+                    } else {
+                        bar.setText(value);
+                    }
+
+                    bar.text.style.color = state.color;
+                }
+            }),
+            bar.text.style.fontFamily = '"Raleway", Helvetica, sans-serif',
+            bar.text.style.fontSize = '2rem',
+            console.log(data.percentage),
+            bar.animate(data.percentage),
+            );
+
+            //$("#quizContainer").hide();
+            // $("#quizResults").text("Scored " + data.score + " out of " + data.outof);
+        },
+        error: function () {
+            console.log("Error while getting quiz score!!!");
         }
     });
 }

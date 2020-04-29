@@ -3,6 +3,8 @@ html, body{
   padding: 0;
   height: 100%;
   width: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 #camera, #camera--view, #camera--sensor, #camera--output{
@@ -34,7 +36,16 @@ html, body{
     left: calc(50% - 100px);
     //display:inline-block;
 }
-
+input[type="radio" i] {
+    width: 0;
+    background-color: initial;
+    cursor: default;
+    -webkit-appearance: radio;
+    box-sizing: border-box;
+    margin: 3px 3px 0px 5px;
+    padding: initial;
+    border: initial;
+}
 /*input[type=text], select {*/
 /*    width: 100%;*/
 /*    padding: 12px 20px;*/
@@ -235,4 +246,26 @@ input {
     color: #a94442;
     background-color: #f2dede;
     border-color: #ebccd1;
+}
+
+.question{
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+.answers {
+    margin-bottom: 20px;
+}
+.answers label{
+    margin-bottom: 10px;
+}
+
+.outPopUp {
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    z-index: 15;
+    top: 50%;
+    left: 50%;
+    margin: -100px 0 0 -150px;
+    background: white;
 }

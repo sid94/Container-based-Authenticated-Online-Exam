@@ -5,7 +5,7 @@ WORKDIR /usr/src/client
 # A wildcard is used to ensure both package.json AND package-lock.json are copied
 # where available (npm@5+)
 COPY package*.json ./
-ENV QUESTIONAIREPOD_URL=http://192.168.220.154:31331 FACEBOX_URL=http://192.168.220.154:31549
+ENV QUESTIONAIREPOD_URL=http://35.224.3.25:8002 FACEBOX_URL=http://34.68.46.217:8080
 RUN npm install
 # Bundle app source
 COPY . .

@@ -68,6 +68,18 @@ app.get('/quiz', async (req, res)=>{
     }
 });
 
+app.get('/score', async (req, res)=>{
+    try{
+
+        let url = (process.env.QUESTIONAIREPOD_URL !== undefined)? process.env.QUESTIONAIREPOD_URL + req.url: "http://localhost:8002" + req.url;
+        const result = await axios.get(`${url}`);
+        await res.json(result.data);
+    }
+    catch (error) {
+        console.log(error);
+    }
+});
+
 async function enrollUser(req,res,imageName,label){
     let url = process.env.FACEBOX_URL !== undefined ? process.env.FACEBOX_URL + '/facebox/check' : "http://localhost:8080/facebox/check";
     //let url = process.env.FACEBOX_URL + '/check' || "http://localhost:8080/facebox/check";
