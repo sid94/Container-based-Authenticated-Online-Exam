@@ -30,6 +30,11 @@ spec:
           image: mestryshweta30/uipod:1.0.0
           ports:
             - containerPort: 8001
+          resources: 
+            limits: 
+              cpu: 100m
+            requests:
+              cpu: 100m
           env:
             - name: QUESTIONAIREPOD_URL
               value: http://35.224.3.25:8002

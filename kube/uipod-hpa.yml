@@ -1,4 +1,4 @@
-apiVersion: autoscaling/v2
+apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
 metadata:
   name: uipod-hpa
@@ -10,10 +10,7 @@ spec:
   minReplicas: 1
   maxReplicas: 10
   metrics:
-    - type: Pods
-      pods:
-        metric:
-          name: uipod_requests_per_second
-        target:
-          type: AverageValue
-          averageValue: 2
+    - type: Resource 
+    resource: 
+      name: cpu 
+      targetAverageUtilization: 60
