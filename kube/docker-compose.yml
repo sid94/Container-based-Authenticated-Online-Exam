@@ -1,0 +1,37 @@
+version: "2"
+services:
+  ui:
+    container_name: ui
+    image: mestryshweta30/uipod:1.0.0
+    ports: 
+      - "8001:8001"
+    links: 
+      - faceboxapi
+      - questionarie
+    environment: 
+        - QUESTIONAIREPOD_URL=http://questionarie:8002
+        - FACEBOX_URL=http://faceboxapi:8080
+  faceboxapi:
+    container_name: faceboxapi
+    image: machinebox/facebox
+    ports:
+      - "8080:8080"
+    environment: 
+        - MB_KEY=NmMwODYxMTEzNzc1NjBjZTQ2N2U2YmM3MmM4YTlmOWQ.wQnMFkEFVv6Z-eoGkfTgb5MHJcnYmZW9YlEGJBw0_FWt_9TpZeIM3Gu6nNCwB1s9tfad2oiXpUzFNdlJUPlueg
+  questionarie:
+    container_name: questionarie
+    image: mestryshweta30/questionariepod:1.0.0
+    restart: always
+    ports:
+      - "8002:8002"
+    links:
+      - mongo
+    environment: 
+        - MONGO_URL=mongodb://mongo:27017/Exam
+  mongo:
+    container_name: mongo
+    image: mongo
+    volumes:
+        - ./data:/data/db
+    ports:
+        - "27017:27017"
